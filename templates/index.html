@@ -1,0 +1,43 @@
+<head>
+	<!-- Load plotly.js into the DOM -->
+	<script src='https://cdn.plot.ly/plotly-2.26.0.min.js'></script>
+    <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
+    <!-- css for chartist -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+	<!-- cdn for chartist -->
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    
+</head>
+
+<body>
+	<div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+	<div class="ct-chart ct-perfect-fourth"></div>
+	<button id='play-button'>Play Earthquake Song</button>
+	<div id='youtube-player'></div>
+	<script>
+        // Function to create and play the YouTube video player
+        function playEarthquakeSong() {
+            var videoId = 'HmAsUQEFYGI'; // YouTube video ID
+            var playerContainer = document.getElementById('youtube-player');
+​
+            // Create an iframe for the YouTube video player
+            var iframe = document.createElement('iframe');
+            iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1'; // Autoplay the video
+            iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+            iframe.allowFullscreen = true;
+​
+            // Replace any existing player with the new one
+            while (playerContainer.firstChild) {
+                playerContainer.removeChild(playerContainer.firstChild);
+            }
+            playerContainer.appendChild(iframe);
+        }
+​
+        // Add a click event listener to the "Play Earthquake Song" button
+        var playButton = document.getElementById('play-button');
+        playButton.addEventListener('click', playEarthquakeSong);
+    </script>
+    <script src="../static/js/globe.js"></script>
+	
+</body>

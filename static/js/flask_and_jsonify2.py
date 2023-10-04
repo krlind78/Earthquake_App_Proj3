@@ -5,7 +5,7 @@ from bson import json_util
 from pprint import pprint
 from flask_cors import CORS
 
-app = Flask(__name__, template_folder='/Users/j/Desktop/Bootcamp/project_3/github_upload_1/code/markers/templates')
+app = Flask(__name__, template_folder='../../templates')
 
 # Connect to MongoDB
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -16,7 +16,7 @@ db = client["earthquake_github"]
 collection = db["quake_github"]
 
 # Read the .geojson file
-with open("/Users/j/Desktop/Bootcamp/project_3/github_upload_1/code/cleaned.geojson", "r") as file:
+with open("../../resources/cleaned.geojson", "r", encoding="utf-8") as file:
     geojson_data = json.load(file)
 
 # Insert the GeoJSON features into the collection
