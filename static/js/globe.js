@@ -1,6 +1,6 @@
 
 
-let url = "http://127.0.0.1:5000/";
+let url = "http://127.0.0.1:5000/data";
 
 let latArray = [];
 let lonArray = [];
@@ -169,15 +169,62 @@ fetch(url)
 
         Plotly.newPlot("myDiv", data, layout, {showLink: false});
 
-        
+        console.log(alertArray)
+
+        const uniqueAlerts = {}
+
+        for (const element of alertArray)
+        {
+            if(uniqueAlerts[element])
+            {
+            uniqueAlerts[element] += 1
+            }
+            else
+            {
+            uniqueAlerts[element] = 1
+            }
+        }
 
 
+        alertColors = Object.keys(uniqueAlerts)
 
+        console.log(alertColors)
+
+        alertCounts = Object.values(uniqueAlerts)
+                
+        var data = {
+        labels: alertColors,
+        series: alertCounts
+        };
+
+        var options = {
+        labelInterpolationFnc: function(value) {
+            return value[0]
+        },
+        width:600,
+        height:400,
+        };
+
+        var responsiveOptions = [
+        ['screen and (min-width: 640px)', {
+            chartPadding: 50,
+            labelOffset: 100,
+            labelDirection: 'explode',
+            labelInterpolationFnc: function(value) {
+            return value;
+            }
+        }],
+        ['screen and (min-width: 1024px)', {
+            labelOffset: 100,
+            chartPadding: 30
+        }]
+        ];
+
+        new Chartist.Pie('.ct-chart', data, options, responsiveOptions);
 
 
 }).catch(error => {
     console.error("Error fetching or parsing data:", error);
 });
-
 
 

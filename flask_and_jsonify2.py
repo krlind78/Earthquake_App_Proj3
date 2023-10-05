@@ -5,7 +5,7 @@ from bson import json_util
 from pprint import pprint
 from flask_cors import CORS
 
-app = Flask(__name__, template_folder='../../templates')
+app = Flask(__name__, template_folder='templates')
 
 # Connect to MongoDB
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -16,7 +16,7 @@ db = client["earthquake_github"]
 collection = db["quake_github"]
 
 # Read the .geojson file
-with open("../../resources/cleaned.geojson", "r", encoding="utf-8") as file:
+with open("static/js/cleaned.geojson", "r", encoding="utf-8") as file:
     geojson_data = json.load(file)
 
 # Insert the GeoJSON features into the collection
@@ -35,11 +35,12 @@ for feature in geojson_data["features"]:
 @app.route("/")
 def index():
 
-
+    return render_template('index.html')
     # Retrieve data from MongoDB
 
 
-
+@app.route("/data/")
+def dataindex():
     data = list(collection.find())
 
     # Format data as a GeoJSON FeatureCollection
@@ -54,7 +55,8 @@ def index():
                 },
                 "properties": {
                 "magnitude": document['properties']['magnitude'],
-                "country": document['properties']['country']
+                "country": document['properties']['country'],
+                 "alert": document['properties']['alert']
                 }
             }
             for document in data
