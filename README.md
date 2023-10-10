@@ -19,3 +19,4 @@ Your project must be powered by a dataset with at least 100 records.
 
 Your project must include some level of user-driven interaction (e.g., menus, dropdowns, textboxes).
 
+ https://docs.google.com/presentation/d/1hmJAaC0X4y0Zc1DlR7RUVsMNjTau-W5PZJNF5DDX6_E/edit?usp=sharing
