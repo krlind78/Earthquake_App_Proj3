@@ -1,5 +1,3 @@
-
-
 let url = "http://127.0.0.1:5000/data";
 
 let latArray = [];
@@ -40,7 +38,7 @@ fetch(url)
                 lonArray.push(lon);
                 var mag2 = Math.pow(mag,3) / 30;
                 magArray.push(mag2);
-                hoverText.push('hello');
+                hoverText.push('Kaggle Earthquake Dataset');
                 depthArray.push(depth);
                 countryArray.push(country);
                 alertArray.push(alert);
@@ -107,7 +105,7 @@ fetch(url)
         var layout = {
             paper_bgcolor: 'black',
             plot_bgcolor: 'black',
-            title: 'Earthquake Database: Magnitude',
+            title: 'Earthquake Severity and Location, Around the Globe:',
             font: {color: 'white'},
             colorbar: true,
             annotations: [{
@@ -198,27 +196,32 @@ fetch(url)
         };
 
         var options = {
-        labelInterpolationFnc: function(value) {
-            return value[0]
-        },
-        width:600,
-        height:400,
+            labelInterpolationFnc: function(value) {
+                return Math.round(value / data.series.reduce(sum) * 100) + '%';
+            },
+            width:600,
+            height:400,
+            showLabel:false,
+            plugins:
+            [
+                Chartist.plugins.legend()
+            ]
         };
 
         var responsiveOptions = [
-        ['screen and (min-width: 640px)', {
-            chartPadding: 50,
-            labelOffset: 100,
-            labelDirection: 'explode',
-            labelInterpolationFnc: function(value) {
-            return value;
-            }
-        }],
-        ['screen and (min-width: 1024px)', {
-            labelOffset: 100,
-            chartPadding: 30
-        }]
-        ];
+            ['screen and (min-width: 640px)', {
+              chartPadding: 30,
+              labelOffset: 100,
+              labelDirection: 'explode',
+              labelInterpolationFnc: function(value) {
+                return value;
+              }
+            }],
+            ['screen and (min-width: 1024px)', {
+              labelOffset: 80,
+              chartPadding: 40
+            }]
+          ];
 
         new Chartist.Pie('.ct-chart', data, options, responsiveOptions);
 
